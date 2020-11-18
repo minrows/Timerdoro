@@ -2,7 +2,7 @@
 	"name": "timerdoro",
 	"displayName": "Timerdoro",
 	"description": "Pomodoro app with Custom userinput time",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"engines": {
 		"vscode": "^1.51.0"
 	},
@@ -17,7 +17,7 @@
 		"commands": [
 			{
 				"command": "timerdoro.helloWorld",
-				"title": "Hello World"
+				"title": "TimerDoro"
 			}
 		]
 	},

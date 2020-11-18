@@ -17,7 +17,19 @@ export function activate(context: vscode.ExtensionContext) {
 		// The code you place here will be executed every time your command is executed
 
 		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from Timerdoro!');
+		const editor = vscode.window.activeTextEditor;
+		let seconds = 0;
+
+		if(!editor) {
+			var minute = 25;
+		} else {
+			var minute = Number(editor.document.getText(editor.selection));
+			if (minute === 0) {
+				minute = 25;
+			}
+		}
+		vscode.window.showInformationMessage('Timer of '+ minute + ' mins started');
+		startTimer(minute, seconds);
 	});
 
 	context.subscriptions.push(disposable);
@@ -25,3 +37,35 @@ export function activate(context: vscode.ExtensionContext) {
 
 // this method is called when your extension is deactivated
 export function deactivate() {}
+
+
+
+
+function startTimer(min: number, sec: number) : void {
+	let counter = { min: min, sec: sec }; 
+	let statusBar = vscode.window.createStatusBarItem();
+
+
+
+	let intervalId = setInterval(() => {
+			if (counter.sec - 1 === -1) {
+				counter.min -= 1;
+				counter.sec = 59;
+			} else {
+				counter.sec -= 1;
+			}
+
+			if (counter.min === 0 && counter.sec === 0) {
+				vscode.window.showInformationMessage('Time for break ;)');
+				clearInterval(intervalId);
+			}
+
+			statusBar.text = counter.min + ':'+ counter.sec ;
+			statusBar.show();
+
+		}, 1000);
+
+
+}
+
+
